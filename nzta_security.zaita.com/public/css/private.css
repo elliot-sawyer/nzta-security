@@ -1,0 +1,195 @@
+@CHARSET "ISO-8859-1";
+body {
+	color: #000000;
+	font-size: 12px;
+	line-height: 100%;
+}
+
+.content {
+	min-height: 200px;
+}
+
+.left-panel {
+	padding-left: 10px;
+	width: 200px;
+	line-height: 30px;
+	display: table-cell;
+    padding-bottom: 25px;
+    min-height: 500px;        
+}
+
+.middle-panel {	
+	padding-left: 10px;
+	padding-bottom: 25px;
+	display: table-cell;
+	vertical-align: top;
+	height: 500px;
+	min-height: 500px;
+	width: 400px;
+	border-left: 1px groove rgba(62, 69, 76, 0.3);
+}
+
+.middle-panel table {
+	margin-left: 10px;
+}
+
+.middle-right-panel {
+  border-left: 1px groove  rgba(62, 69, 76, 0.3);
+  padding-left: 10px;
+  display: table-cell;
+}
+
+.middle-right-panel table {
+  margin-left: 10px;
+}
+
+.page-header {
+	border-bottom: 2px groove rgba(62, 69, 76, 0.3);
+}
+
+.panel-heading {
+	color: #004071;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+th {
+  color: #e74c3c;
+  font-size: 14px;
+}
+
+.rd-navbar-static .rd-navbar-inner, .rd-navbar-fullwidth .rd-navbar-inner {
+	padding-top: 50px;
+	padding-bottom: 10px;
+	margin-left: 0px;
+}
+
+.content A {
+	color: #3c4ce7;
+}
+
+
+table.projects-revision-table,
+table.library-version-table {
+	margin-left: 0px;	
+}
+
+table.projects-revision-table th, 
+table.library-version-table th
+{
+	text-align: left;
+  padding-right: 25px;
+  padding-bottom: 5px;
+}
+
+table.projects-revision-table tr td,
+table.library-version-table tr td {
+  border-top: 1px dotted rgba(62, 69, 76, 0.3);
+  padding-bottom: 0px;
+  padding-top: 2px;
+  line-height: 125%;  
+  padding-right: 10px;
+}
+
+table.libraries-table th {
+	text-align: left;
+  padding-right: 25px;
+  padding-bottom: 5px;
+}
+
+table.libraries-table tr td {
+  border-top: 1px dotted rgba(62, 69, 76, 0.3);
+  padding-bottom: 0px;
+  padding-top: 2px;
+  line-height: 125%;  
+  padding-right: 10px;
+}
+
+.collaborators-table th {
+  text-align: left;
+  padding-right: 20px;
+  padding-left: 2px;
+  padding-top: 2px; 
+}
+
+.project-table tr th,
+ .library-table tr th {
+  text-align: left; 
+}
+
+.project-table tr td,
+ .library-table tr td,
+ .collaborators-table tr td {
+  border-bottom: 1px dotted rgba(62, 69, 76, 0.3);
+  padding-bottom: 10px;
+  padding-top: 2px;
+  line-height: 125%;  
+  padding-right: 10px;
+}
+
+.project-revision-table {
+	width: 100%;	
+	border-top: 1px dotted rgba(62, 69, 76, 0.3);	
+}
+
+.project-revision-table th,
+ .collaborators-table th {
+	padding-bottom: 5px;
+	border-left: 1px dotted rgba(62, 69, 76, 0.3);
+}
+.project-revision-table th,
+  .project-revision-table td,
+  .collaborators-table th, 
+  .collaborators-table td {
+  text-align: left;
+	padding-right: 20px;
+	padding-left: 2px;
+	padding-top: 2px;	
+}
+
+.project-revision-table td,
+ .collaborators-table td {
+	border: 1px dotted rgba(62, 69, 76, 0.3);
+	padding-bottom: 2px;
+}
+	
+.minor-heading {
+  color: #e74c3c;
+  font-size: 14px;
+  line-height: 125%;
+}
+
+.tiny-heading {
+  color: #e74c3c;
+  font-size: 12px;
+}
+
+.description {
+	font-style: italic;
+	color: #696969;
+}
+
+.panel-body {
+	line-height: 125%;  
+}
+
+.green {
+	color: #00AA00;
+}
+
+.red {
+	color: #AA0000;
+}
+
+.panel-revisions, .panel-versions {
+	padding-top: 20px;
+}
+
+.project-libraries,
+ .library-downloads {
+	line-height: 150%;
+}
+
+textarea {
+	border: 1px solid rgba(62, 69, 76, 0.3);
+}
