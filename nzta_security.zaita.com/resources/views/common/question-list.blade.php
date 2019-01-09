@@ -6,8 +6,6 @@
 
 @section('content')
 <div class="left-panel" style="float: left; width: 240px;">
-<?php echo session('id');?><br/>
-<?php echo session('uuid'); ?><br/>
 	<div class="panel-default">
 		<div class="panel-heading" class="panel-heading">Questions:</div>
 		<div class="panel-body">

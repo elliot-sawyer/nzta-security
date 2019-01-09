@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'NZ Transport Agency SDLC'),
+    'name' => env('APP_NAME', 'NZ Transport Agency SDLT'),
 
     /*
     |--------------------------------------------------------------------------

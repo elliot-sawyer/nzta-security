@@ -34,7 +34,7 @@ class QuestionController extends Controller
    * 
    * @param Request $request
    * @param bool $allow_request
-   * @param bool #requires_uuid
+   * @param bool $requires_uuid
    * @return int
    */  
   public function get_id(Request $request, bool $allow_request, bool $requires_uuid = True) {
@@ -108,6 +108,7 @@ class QuestionController extends Controller
     $uuid = uniqid();
     $id = DB::table($this->table_name_)->insertGetId([
       'uuid' => $uuid,
+      'name' => $request->get('product_name', ''),
       'submitter_name' => $request->get('name'),
       'submitter_role' => $request->get('role'),
       'submitter_email' => $request->get('email'),
@@ -137,7 +138,7 @@ class QuestionController extends Controller
     $record = DB::table($this->table_name_)->where('id', $id)->first();
     $recordArr = array($record->data);
     
-    return view('questions')
+    return view('common.question-list')
     ->with('inputJson', json_encode($recordArr))
     ->with('id', $id);
   }
@@ -182,7 +183,7 @@ class QuestionController extends Controller
     $record = DB::table($this->table_name_)->where('id', $id)->first();
     $recordArr = json_decode($record->data);
     
-    return view($this->view_prefix_.'.review')
+    return view('common.review-answers')
     ->with('questions', $recordArr);
   }
   
@@ -213,7 +214,7 @@ class QuestionController extends Controller
     $record = DB::table($this->table_name_)->where('id', $id)->first();
     $recordArr = json_decode($record->data);
      
-    $pdf = PDF::loadView($this->view_prefix_.'.download-pdf', ['questions' => $recordArr, 'record' => $record]);
+    $pdf = PDF::loadView('common.download-pdf', ['questions' => $recordArr, 'record' => $record]);
     return $pdf->download($this->url_prefix_.'-request-form.pdf');
   }
   

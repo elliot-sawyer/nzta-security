@@ -34,7 +34,4 @@ pending
 	</span><br/>
 <?php endif;?>
 </div>
-<br/>
-<?php echo session('id');?><br/>
-<?php echo session('uuid'); ?><br/>
 @endsection

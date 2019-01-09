@@ -122,13 +122,13 @@ font-size: 12px;
 <!-- The Main Wrapper -->
 <div class="page">
 <div class="top_blue_bar"></div>
-<div class="logo_title_bar"><span class="logo_text">Software as a Service Request Form</span><br/>
+<div class="logo_title_bar"><span class="logo_text">{{ $title }}</span><br/>
 <span class="logo_sub_text">Security Development Lifecycle Tool</span></div>       
 
 <div class="answers">
 <div class="response_row" style="margin-top: 10px; width: 720px;">
 <span class="question">
-A software as a service form has been submitted by:<br/>
+A {{ $logo_text }} has been submitted by:<br/>
 <span style="color: #0000AA">{{ $record->submitter_name }}</span></span><br/>
 <span class="role">{{ $record->submitter_role }}</span><br/>
 <span class="email">{{ $record->submitter_email }}</span>
@@ -146,8 +146,8 @@ A software as a service form has been submitted by:<br/>
       if (isset($question->inputs)) {
         foreach($question->inputs as $input) {
           if ($input->name == "Description") {
-            if (isset($input->answer))
-              echo $input->answer;
+            if (isset($input->answer) and $input->answer != '')
+              echo str_replace(PHP_EOL, '<br/>', $input->answer);
             else
               echo "No answer provided.<br/>";
           } else {
@@ -165,7 +165,6 @@ A software as a service form has been submitted by:<br/>
         </div>      
     @endforeach	
 </div>
-
 <div class="footer_blue_bar"><p class="copyright">&copy; 2019 | NZ Transporty Agency</p></div>
 		
 </div> <!--  Page  -->

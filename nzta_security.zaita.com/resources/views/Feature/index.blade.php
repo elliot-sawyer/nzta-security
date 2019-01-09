@@ -48,18 +48,28 @@ through this process and you will be contacted when they have been completed.</l
 to review your answers, or finish the questionaire at a later date if you cannot complete it in one sitting.</li>
 </ol>
 
-<form action="{{ $url_prefix }}/start" method="get">
+<form action="{{ $url_prefix }}/start" method="post">
+<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
+<div class="row" style="margin-top: 0px;">
+	<div class="col-sm-4 control-label">Product Name:</div>
+	<div class="col-sm-6 wow"><input type="text" class="form-control" id="product_name" name="product_name" value="{{ old('product_name') }}" required/></div>
+</div>
 <div class="row" style="margin-top: 0px;">
 	<div class="col-sm-4 control-label">Your Name:</div>
-	<div class="col-sm-6 wow"><input type="text" class="form-control" id="name" name="name" value=""/></div>
+	<div class="col-sm-6 wow"><input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required/></div>
 </div>
 <div class="row" style="margin-top: 0px;">
 	<div class="col-sm-4 control-label">Your Role:</div>
-	<div class="col-sm-6 wow"><input type="text" class="form-control" id="role" name="role" value=""/></div>
+	<div class="col-sm-6 wow"><input type="text" class="form-control" id="role" name="role" value="{{ old('role') }}" required/></div>
 </div>
 <div class="row" style="margin-top: 0px;">
 	<div class="col-sm-4 control-label">Email Address:</div>
-	<div class="col-sm-6 wow"><input type="text" class="form-control" id="email" name="email" value=""/></div>
+	<div class="col-sm-6 wow"><input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required/></div>
+</div>
+<div class="row" style="margin-top: 10px;">
+	<div class="col-sm-10 small" id="question-message" style="font-weight:bold;">
+	@include('common.errors')
+	</div>
 </div>
 <div class="row" style="margin: 10px 10px;">
 <div class="col-sm-6"><input type="submit" class="btn btn-xs btn-primary-variant-1" value="Start"/></div>

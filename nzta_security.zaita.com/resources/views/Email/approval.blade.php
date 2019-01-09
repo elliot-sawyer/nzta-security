@@ -7,7 +7,7 @@ Please review and approve the following {{ $logo_text }} that has been submitted
 Name: {{ $submitter_name }}, {{ $submitter_role }}.<br/>
 Email: {{ $submitter_email }}<br/>
 <br/>
-@include ('common.question_review')
+@include ('common.question-responses')
 <br/>
 <a href="{{ $url }}&action=approve">Click here Approve</a> - <a href="{{ $url }}&action=deny">Click here to Deny</a><br/>
 <br/>

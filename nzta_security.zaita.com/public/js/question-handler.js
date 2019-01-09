@@ -121,7 +121,7 @@ function load_next_question(chosen_answer) {
 	}
 	
 	// Debug answers JSON
-	$("#answers_debug")[0].innerHTML = 'Answers: <pre>' +  JSON.stringify(questions, null, 4) + '</pre>';
+	//$("#answers_debug")[0].innerHTML = 'Answers: <pre>' +  JSON.stringify(questions, null, 4) + '</pre>';
 	
 	/**
 	 * Process the answer, if it's a message or create_task etc

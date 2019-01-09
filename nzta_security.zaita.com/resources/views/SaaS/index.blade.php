@@ -52,6 +52,10 @@ to review your answers, or finish the questionaire at a later date if you cannot
 <form action="{{ $url_prefix }}/start" method="post">
 <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
 <div class="row" style="margin-top: 0px;">
+	<div class="col-sm-4 control-label">Product Name:</div>
+	<div class="col-sm-6 wow"><input type="text" class="form-control" id="product_name" name="product_name" value="{{ old('product_name') }}" required/></div>
+</div>
+<div class="row" style="margin-top: 0px;">
 	<div class="col-sm-4 control-label">Your Name:</div>
 	<div class="col-sm-6 wow"><input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required/></div>
 </div>

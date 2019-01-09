@@ -43,26 +43,29 @@ Route::get('/software-as-a-service/business-owner-approval', 'SoftwareAsAService
 Route::get('/software-as-a-service/summary', 'SoftwareAsAServiceController@summary');
 
 Route::get('/solution', 'SolutionController@index');
-Route::get('/solution/start', 'SolutionController@start');
+Route::post('/solution/start', 'SolutionController@start');
 Route::get('/solution/questions', 'SolutionController@questions');
 Route::get('/solution/load-questions', 'SolutionController@load_questions');
 Route::post('/solution/save-answers', 'SolutionController@save_answers');
 Route::get('/solution/save-answers', 'SolutionController@save_answers');
 Route::get('/solution/update-answers', 'SolutionController@update_answers');
 Route::get('/solution/review-answers', 'SolutionController@review_answers');
-Route::get('/solution/submit-answers', 'SolutionController@submit_answers');
+Route::get('/solution/submit-for-approval', 'SolutionController@submit_for_approval');
 Route::get('/solution/download-pdf', 'SolutionController@download_pdf');
-Route::get('/solution/send-for-approval', 'SolutionController@send_for_approval');
+Route::get('/solution/ciso-approval', 'SolutionController@ciso_approval');
+Route::get('/solution/business-owner-approval', 'SolutionController@business_owner_approval');
 Route::get('/solution/summary', 'SolutionController@summary');
 
 Route::get('/feature-bug-fix', 'FeatureController@index');
-Route::get('/feature-bug-fix/start', 'FeatureController@start');
+Route::post('/feature-bug-fix/start', 'FeatureController@start');
 Route::get('/feature-bug-fix/questions', 'FeatureController@questions');
 Route::get('/feature-bug-fix/load-questions', 'FeatureController@load_questions');
 Route::post('/feature-bug-fix/save-answers', 'FeatureController@save_answers');
 Route::get('/feature-bug-fix/save-answers', 'FeatureController@save_answers');
 Route::get('/feature-bug-fix/update-answers', 'FeatureController@update_answers');
 Route::get('/feature-bug-fix/review-answers', 'FeatureController@review_answers');
-Route::get('/feature-bug-fix/submit-answers', 'FeatureController@submit_answers');
+Route::get('/feature-bug-fix/submit-for-approval', 'FeatureController@submit_for_approval');
 Route::get('/feature-bug-fix/download-pdf', 'FeatureController@download_pdf');
-Route::get('/feature-bug-fix/send-for-approval', 'FeatureController@send_for_approval');
+Route::get('/feature-bug-fix/ciso-approval', 'FeatureController@ciso_approval');
+Route::get('/feature-bug-fix/business-owner-approval', 'FeatureController@business_owner_approval');
+Route::get('/feature-bug-fix/summary', 'FeatureController@summary');

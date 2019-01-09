@@ -23,8 +23,4 @@ class SolutionController extends QuestionController
     View::share('title', $this->title_);
     View::share('logo_text', $this->logo_text_);
   }
-  
-  public function Start(Request $request) {
-    abort(404, "Not yet implemented");      
-  }  
 }

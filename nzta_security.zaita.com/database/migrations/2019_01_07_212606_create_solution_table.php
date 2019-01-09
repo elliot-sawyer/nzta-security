@@ -16,10 +16,12 @@ class CreateSolutionTable extends Migration
         Schema::create('solution', function (Blueprint $table) {
           $table->increments('id');
           $table->string('uuid');
+          $table->string('name')->nullable();
           $table->string('submitter_name');
           $table->string('submitter_role');
           $table->string('submitter_email');
           $table->json('data')->nullable();
+          $table->json('tasks')->nullable();
           $table->json('ciso_approval')->nullable();
           $table->json('business_owner_approval')->nullable();
           $table->json('security_architect_approval')->nullable();
