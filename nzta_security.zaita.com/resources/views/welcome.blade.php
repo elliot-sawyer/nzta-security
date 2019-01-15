@@ -76,7 +76,7 @@
                 <div class="links">
                     <a href="/proof-of-concept/">Proof of Concept or Software Trial</a>
                     <a href="/software-as-a-service/">Software as-a Service (SaaS)</a>
-                    <a href="/solution/">Product, Project or Solution</a>
+                    <a href="/choose-solution">Product, Project or Solution</a>
                     <a href="/feature-bug-fix">Feature or Bug Fix</a>                    
                 </div>
             </div>

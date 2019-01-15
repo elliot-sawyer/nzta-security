@@ -6,7 +6,7 @@
 	<link href="{{ secure_asset('css/shortcodes.css') }}" rel="stylesheet">
 	<link href="{{ secure_asset('css/style.css') }}" rel="stylesheet">
 	<link href="{{ secure_asset('css/private.css') }}" rel="stylesheet">
-		
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">		
 <style>
 div, body {
 border: 0px solid black;
@@ -115,11 +115,10 @@ font-style: italic;
 		
 </div> <!--  Page  -->
 	<!-- Scripts -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	<!-- Core Scripts -->
-	<script src="{{ secure_asset('/js/core.min.js') }}"></script>
-	<script src="{{ secure_asset('/js/script.js') }}"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+	
+	<!-- Core Scripts -->		
 	@yield('js')
 </body>
 </html>

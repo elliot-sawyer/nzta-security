@@ -29,7 +29,7 @@ class BusinessOwnerApproval extends Mailable
   public function __construct(Object $record, Array $questions, string $url, string $business_owner, string $title, string $subject)
   {
     $this->title = $title;
-    $this->subject($subject);
+    $this->subject('Please Approve - '.$subject);
     $this->questions = $questions;
     $this->url = $url;
     $this->submitter_name  = $record->submitter_name;

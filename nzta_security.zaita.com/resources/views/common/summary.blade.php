@@ -13,6 +13,15 @@ Email: {{ $record->submitter_email }}<br/>
 <a href="{{ $url_prefix }}/download-pdf?id={{ $record->id }}">Download PDF of information submitted</a><br/>
 <br/>
 <br/>
+<?php if (isset($record->tasks) && $record->tasks != ''):?>
+<?php $tasks = json_decode($record->tasks); ?>
+<span class="question">Tasks</span><br/>
+	<?php if (isset($tasks->information_classification)): ?>
+	Information Classification - {{ $tasks->information_classification->status }}<br/> 
+	<?php endif;?>
+<br/>
+<br/>
+<?php endif;?>
 <span class="question">Approvals</span><br/>
 <br/>
 <?php if ($ciso_approval != ''):?>

@@ -42,6 +42,7 @@ Route::get('/software-as-a-service/ciso-approval', 'SoftwareAsAServiceController
 Route::get('/software-as-a-service/business-owner-approval', 'SoftwareAsAServiceController@business_owner_approval');
 Route::get('/software-as-a-service/summary', 'SoftwareAsAServiceController@summary');
 
+Route::get('/choose-solution', 'SolutionController@choose');
 Route::get('/solution', 'SolutionController@index');
 Route::post('/solution/start', 'SolutionController@start');
 Route::get('/solution/questions', 'SolutionController@questions');
@@ -69,3 +70,26 @@ Route::get('/feature-bug-fix/download-pdf', 'FeatureController@download_pdf');
 Route::get('/feature-bug-fix/ciso-approval', 'FeatureController@ciso_approval');
 Route::get('/feature-bug-fix/business-owner-approval', 'FeatureController@business_owner_approval');
 Route::get('/feature-bug-fix/summary', 'FeatureController@summary');
+
+Route::get('/solution-ira/', 'SolutionInitialRiskAssessmentController@index');
+Route::post('/solution-ira/start', 'SolutionInitialRiskAssessmentController@start');
+Route::get('/solution-ira/questions', 'SolutionInitialRiskAssessmentController@questions');
+Route::get('/solution-ira/load-questions', 'SolutionInitialRiskAssessmentController@load_questions');
+Route::post('/solution-ira/save-answers', 'SolutionInitialRiskAssessmentController@save_answers');
+Route::get('/solution-ira/save-answers', 'SolutionInitialRiskAssessmentController@save_answers');
+Route::get('/solution-ira/update-answers', 'SolutionInitialRiskAssessmentController@update_answers');
+Route::get('/solution-ira/finish', 'SolutionInitialRiskAssessmentController@finish');
+
+Route::get('/tasks/information-classification', 'InformationClassificationTaskController@index');
+Route::get('/tasks/information-classification/questions', 'InformationClassificationTaskController@questions');
+Route::get('/tasks/information-classification/load-questions', 'InformationClassificationTaskController@load_questions');
+Route::post('/tasks/information-classification/save-answers', 'InformationClassificationTaskController@save_answers');
+Route::get('/tasks/information-classification/save-answers', 'InformationClassificationTaskController@save_answers');
+Route::get('/tasks/information-classification/update-answers', 'InformationClassificationTaskController@update_answers');
+Route::get('/tasks/information-classification/finish', 'InformationClassificationTaskController@finish');
+
+Route::get('/component-selection/', 'ComponentSelectionController@index');
+Route::post('/component-selection/start', 'ComponentSelectionController@start');
+Route::get('/component-selection/selection', 'ComponentSelectionController@selection');
+Route::get('/component-selection/load-components', 'ComponentSelectionController@load_components');
+Route::get('/component-selection/load-component-controls', 'ComponentSelectionController@load_component_controls');

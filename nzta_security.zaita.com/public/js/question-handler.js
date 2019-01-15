@@ -131,6 +131,9 @@ function load_next_question(chosen_answer) {
 		answers.innerHTML = '';
 		$("#question-message")[0].innerHTML = questions[current_question]['actions'][chosen_answer]['message'];
 		return;
+	} else if (answer_action == 'finish') {
+    window.location.href = document.getElementById('url_prefix').value + "/finish?result=" + questions[current_question]['actions'][chosen_answer]['result'];
+    return;
 	}
 	
 	/**

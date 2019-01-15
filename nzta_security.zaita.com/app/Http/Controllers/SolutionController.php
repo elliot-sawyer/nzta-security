@@ -23,4 +23,17 @@ class SolutionController extends QuestionController
     View::share('title', $this->title_);
     View::share('logo_text', $this->logo_text_);
   }
+  
+  /**
+   * This method handles loading the Initial Risk Assessment
+   * index page
+   * @param Request $request
+   */
+  public function Choose(Request $request) {
+    $request->session()->flush();
+    $request->session()->regenerateToken();
+    
+    return view($this->view_prefix_.'.choose')
+    ->with('error', $request->session()->get('error', ''));
+  }
 }

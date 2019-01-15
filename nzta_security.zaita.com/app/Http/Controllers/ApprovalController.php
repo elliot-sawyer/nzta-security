@@ -11,9 +11,6 @@ use Illuminate\Http\Request;
 class ApprovalController extends Controller
 {
   
-  
-  
-  
   /**
    * This method will email the business owner and ciso for POC approval
    * {@inheritDoc}

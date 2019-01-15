@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInformationClassificationTaskTable extends Migration
+class CreateComponentSelectionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateInformationClassificationTaskTable extends Migration
      */
     public function up()
     {
-        Schema::create('information_classification_tasks', function (Blueprint $table) {
+      Schema::create('component_selection', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('uuid');          
+          $table->string('uuid');
+          $table->string('name')->nullable();
+          $table->string('submitter_name');
+          $table->string('submitter_role');
+          $table->string('submitter_email');
           $table->json('data')->nullable();
-          $table->string('parent_table');
-          $table->integer('parent_id');
-          $table->string('parent_summary_url');
-          $table->string('result');
           $table->timestamps();
-        });
+      });
     }
 
     /**
@@ -32,6 +32,6 @@ class CreateInformationClassificationTaskTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('information_classification_tasks');
+      Schema::dropIfExists('component_selection');
     }
 }

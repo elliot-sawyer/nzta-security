@@ -1,56 +1,52 @@
 <?php
 
-namespace App\Mail;
+namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Mail;
 
-class SubmitterLinks extends Mailable
+class SendLinkEmail implements ShouldQueue
 {
-    use Queueable, SerializesModels;
-    
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     protected $url_prefix_;
     protected $title_;
     protected $logo_text_;
     protected $id;
     protected $uuid;
     protected $name;
+    protected $subject;
     protected $target_email;
     
     /**
-     * Create a new message instance.
+     * Create a new job instance.
      *
      * @return void
      */
     public function __construct(string $url_prefix, string $title, string $logo_text, int $id, string $uuid, string $name, string $to, string $subject)
     {
-      //
       $this->url_prefix_ = $url_prefix;
       $this->title_ = $title;
       $this->logo_text_ = $logo_text;
       $this->id = $id;
       $this->uuid = $uuid;
       $this->name = $name;
-      $this->subject($subject.' - Links');
+      $this->subject = $subject;
       $this->target_email = $to;
     }
 
     /**
-     * Build the message.
+     * Execute the job.
      *
-     * @return $this
+     * @return void
      */
-    public function build() 
-    {     
-      return $this->view('Email.submitter_links')
-      ->with('id', $this->id)
-      ->with('uuid', $this->uuid)
-      ->with('name', $this->name)
-      ->with('url_prefix', '/'.$this->url_prefix_)
-      ->with('title', $this->title_)
-      ->with('logo_text', $this->logo_text_);
+    public function handle()
+    {
+      Mail::to($this->target_email)
+      ->send(new \App\Mail\SubmitterLinks($this->url_prefix_, $this->title_, $this->logo_text_, $this->id, $this->uuid, $this->name, $this->target_email, $this->subject)); 
     }
 }

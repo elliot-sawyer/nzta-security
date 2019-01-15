@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSolutionTasksTable extends Migration
+class CreateSolutionInitialRiskAssessment extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateSolutionTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('solution_tasks', function (Blueprint $table) {
+      Schema::create('solution_initial_risk_assessment', function (Blueprint $table) {
           $table->increments('id');
-          $table->unsignedInteger('solution_id');
-          $table->string('task_id');
+          $table->string('uuid');
+          $table->string('name')->nullable();
+          $table->string('submitter_name');
+          $table->string('submitter_role');
           $table->string('submitter_email');
           $table->json('data')->nullable();
+          $table->string('result')->nullable();
           $table->timestamps();
-        });
+      });
     }
 
     /**
@@ -30,6 +33,6 @@ class CreateSolutionTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solution_tasks');
+      Schema::dropIfExists('solution_initial_risk_assessment');
     }
 }

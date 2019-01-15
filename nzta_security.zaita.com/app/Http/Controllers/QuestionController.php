@@ -16,55 +16,11 @@ class QuestionController extends Controller
 {
   protected $table_name_;
   protected $json_file_name_;
-  protected $view_prefix_;
-  protected $url_prefix_;
-  protected $title_;
-  protected $logo_text_;
-  protected $id;  
-  protected $uuid;
   protected $business_owner_approval_required = True;
   protected $ciso_approval_required = True;
   protected $security_architect_approval_required = True;
-  
-  /**
-   * This is a helper function to set verify and set the id and
-   * uuid values for requests and the session. This is used by almost
-   * every other method to validate the id. This has security functions
-   * as it stops people from just changing the URL values.
-   * 
-   * @param Request $request
-   * @param bool $allow_request
-   * @param bool $requires_uuid
-   * @return int
-   */  
-  public function get_id(Request $request, bool $allow_request, bool $requires_uuid = True) {
-    $id = $allow_request ? $request->get('id', '') : '';
-    $uuid = $allow_request ?  $request->get('uuid', '') : '';
-        
-    $id = $id == '' ? $request->session()->get('id', '') : $id;
-    $uuid = $uuid == '' ? $request->session()->get('uuid', '') : $uuid;
-    
-    if ($id != '' && is_numeric($id)) {
-      $record = DB::table($this->table_name_)->where('id', $id)->first();
-      if (!$record)
-        abort(404, "The id {$id} could not be found or is invalid");
-              
-      if ($requires_uuid && ($uuid == '' || $uuid != $record->uuid))
-        abort(404, "The uuid {$uuid} does not match the private one established for the id {$id}");
-    } else {
-      if ($request->get('id', '') != '' && !$allow_request)      
-        abort(404, "Specifying id as a request parameter is not allowed for this operation");
-      else 
-        abort(404, "No valid id has been provided to find relevent record");
-    }
-      
-    $this->id = $id;
-    $this->uuid = $uuid;
-    $request->session()->put('id', $this->id);
-    $request->session()->put('uuid', $this->uuid);    
-    
-    return $this->id;
-  }
+  protected $send_links_email_ = True;
+  protected $requires_component_selection_task_ = False;
   
   /**
    * Load the intial page that displays basic information and
@@ -118,12 +74,14 @@ class QuestionController extends Controller
     $request->session()->put('id', $id);
     $request->session()->put('uuid', $uuid);
     
-    // email submitter details so they can use links
-    // to check on status or edit questions    
-    Mail::to($email)
-    ->queue(new \App\Mail\SubmitterLinks($id, $uuid, $request->get('name'), $this->title_));    
+    if ($this->send_links_email_) {
+      // email submitter details so they can use links
+      // to check on status or edit questions    
+//     Mail::to($email)
+//     ->queue(new \App\Mail\SubmitterLinks($id, $uuid, $request->get('name'), $email, $this->title_));    
 //     return view('Email.submitter_links')->with('id', $id)->with('name', $request->get('name'));
-        
+      \App\Jobs\SendLinkEmail::dispatch($this->url_prefix_, $this->title_, $this->logo_text_, $id, $uuid, $request->get('name'), $email, $this->title_);        
+    }
     return redirect($this->url_prefix_.'/questions');
   }
   
@@ -196,6 +154,63 @@ class QuestionController extends Controller
     $id = $this->get_id($request, False);
     $record = DB::table($this->table_name_)->where('id', $id)->first();
     
+    // Create The Tasks JSON
+    $task_json = json_decode("{}");
+    // populate it with existing objects. This is so we don't lose
+    // any established and finished tasks
+    if (isset($record->tasks) && $record->tasks)
+      $task_json = json_decode($record->tasks);
+    
+    $data = json_decode($record->data);
+    foreach ($data as $question) {      
+      if (isset($question->answer) && $question->answer != '') {
+        $answer = strtolower($question->answer);
+        
+        if (isset($question->actions)) {
+          foreach($question->actions as $input) {
+            if ($answer == strtolower($input->text) && strtolower($input->action) == "create_task") {
+              // Handle the Information Classification Task
+              if (strtolower($input->target) == "information_classification") {
+                if (!isset($task_json->information_classification)) {
+                  $uuid = uniqid();
+                  $task_id = DB::table('information_classification_tasks')->insertGetId([
+                    'uuid' => $uuid,
+                    'result' => 'pending',
+                    'parent_id' => $id,
+                    'parent_table' => $this->table_name_,
+                    'parent_summary_url' => '/'.$this->url_prefix_.'/summary?id='.$id
+                  ]);
+                                  
+                  $task_json->information_classification = array();
+                  $task_json->information_classification['id'] = $task_id;
+                  $task_json->information_classification['uuid'] = $uuid;
+                  $task_json->information_classification['status'] = 'pending';                  
+                }
+              } // if (strtolower($input->target) == "information_classification") 
+            } // if ($answer == strtolower($input->text) && strtolower($input->action) == "create_task")
+          } // foreach($question->actions as $input) {
+        } // if (isset($question->actions)) {
+      } // if (isset($question->answer) && $question->answer != '')
+    } // foreach ($data as $question) 
+        
+    //
+    DB::table($this->table_name_)
+    ->where('id', $record->id)
+    ->update(['tasks' => json_encode($task_json)]);   
+    
+    // Send Email With Task Links
+    if (isset($task_json->information_classification)) {
+      $tasks = array();
+      $tasks[0] = array();
+      $tasks[0]['name'] = 'Information Classification';
+      $tasks[0]['url'] = 'tasks/information-classification?id='.$task_json->information_classification['id'].'&uuid='
+        .$task_json->information_classification['uuid'];
+      
+      Mail::to($record->submitter_email)
+      ->send(new \App\Mail\TaskLinks($record->submitter_name, $record->id, $this->url_prefix_, $this->title_, $this->logo_text_, $tasks));
+    }
+    
+    // TODO: Queue these
     if ($this->business_owner_approval_required)
       $this->create_business_owner_approval($id, $record, $request);
     if ($this->ciso_approval_required)
