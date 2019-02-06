@@ -1,0 +1,105 @@
+[
+{
+  "id" : "endanger_human",
+  "title" : "Endanger A Person",
+  "question" : "Could the public release of information used by this solution endanger the safety of any persons?",
+  "description" : "I.e. The release/disclosure could cause a person(s) physical harm or death",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "High Risk"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"    
+    }
+  ]
+},
+{
+  "id" : "information_classification",
+  "title" : "Information Classification",
+  "question" : "Do you know the Information Classification and is it Sentitive?",
+  "description" : "Click yes if you answer yes to both, otherwise click No",
+  "actions" : [
+    { 
+    "text" : "Yes - Sensitive Classification",
+    "action" : "finish",
+    "result" : "High Risk"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"    
+    }
+  ]
+},
+{
+  "id" : "payments",
+  "title" : "Payments",
+  "question" : "Will this solution accept financial payments in any form?",
+  "description" : "This includes credit cards, bank transfers, direct debits etc",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "High Risk"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"    
+    }
+  ]
+},
+{
+  "id" : "mvr_dlr",
+  "title" : "MVR/DLR Access",
+  "question" : "Does this solution interact with MVR or DLR?",
+  "description" : "The solution either reads or writes data to/from MVR or DLR",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "Medium Risk"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "pii",
+  "title" : "Personally Identifiable Information",
+  "question" : "Will this solution store, retrieve or transmit personally identifiable information (PII)?",
+  "description" : "PII includes names, addresses, email address, phone number and DOB",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "Medium Risk"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "authentication",
+  "title" : "Active Director or OKTA",
+  "question" : "Does this solution use an authentication platform that is NOT Active Directory or Okta?",
+  "description" : "This includes any third-party systems we need to integrate with to authenticate users",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "Medium Risk"
+    },
+    {
+    "text" : "No",
+    "action" : "finish",
+    "result" : "Low Risk"
+    }
+  ]
+}
+]

@@ -1,0 +1,83 @@
+[
+{
+  "id" : "describe_information",
+  "title" : "Information Description",
+  "question" : "Please describe the types of information being stored by this deliverable",
+  "description" : "The following questions will reference the information you describe here as 'the information' being classified",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "endanger_human",
+  "title" : "Endanger A Person",
+  "question" : "Could the public release of this information ender the safety of any persons?",
+  "description" : "I.e. The release could cause a person(s) physical harm or death",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "Sensitive"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"    
+    }
+  ]
+},
+{
+  "id" : "public_disclosure",
+  "title" : "Public Disclosure",
+  "question" : "Could this information be released to the public?",
+  "description" : "I.e. Could we publish this information freely on our website?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "Unclassified"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"    
+    }
+  ]
+},
+{
+  "id" : "media_access",
+  "title" : "Media Access",
+  "question" : "Could this information be emailed to the media without consequence to Transport Agency?",
+  "description" : "I.e. Could we freely give this information to the media?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "Unclassified"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"    
+    }
+  ]
+},
+{
+  "id" : "unauthenticated access",
+  "title" : "Unauthenticated Access",
+  "question" : "Could we allow public users of this system access to this information without authentication?",
+  "description" : "I.e. Can we make this available without authentication online?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "finish",
+    "result" : "Unclassified"
+    },
+    {
+    "text" : "No",
+    "action" : "finish",
+    "result" : "In-Confidence"    
+    }
+  ]
+}
+]

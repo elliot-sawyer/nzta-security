@@ -50,7 +50,7 @@ a.clean-link {
       </div>    		
   		<div class="row" style="margin-top: 10px;"><div class="col-sm-12" id="question-input-error">&nbsp;</div></div>    				
     </div>
-    Selected Components:<br/>
+    Required Security Controls:<br/>
     <br/>    
     <div id="selected-components"></div> 
 	</div>

@@ -1,0 +1,284 @@
+[
+{
+  "id" : "product_details",
+  "title" : "Product Details",
+  "question" : "Please enter the product details",
+  "description" : "",
+  "inputs" : [
+    { 
+    "name" : "Product Name",
+    "type" : "text"
+    },
+    {
+    "name" : "Product URL",
+    "type" : "text"
+    },
+    {
+    "name" : "Contact Email",
+    "type" : "email",
+    "optional" : "true"
+    }
+  ]
+},
+{
+  "id" : "existing_poc_goto_prod",
+  "title" : "Existing POC/Trial",
+  "question" : "Is this an existing Proof of Concept or Trial?",
+  "description" : "Is the product you're filling this out for already in a proof of concept or trial phase at the Transport Agency?", 
+  "actions" : [
+    {
+    "text" : "Yes",
+    "action" : "goto",
+    "target" : "existing_saas_product"
+    },
+    {
+    "text" : "No",
+    "action" : "goto",
+    "target" : "has_been_used_before"
+    }
+  ] 
+},
+{
+  "id" : "existing_saas_product",
+  "title" : "Existing SaaS",
+  "question" : "Is this product a SaaS product?",
+  "description" : "Is this a product that we subscribe to and is hosted by another company (i.e. software as a service)?",  
+  "actions" : [
+    {
+    "text" : "Yes",
+    "action" : "message",
+    "message" : "Moving an existing proof of concept or trial to production requires appropriate security assurance to be completed. Please fill out the <a href=\"/saas\">SaaS questionnaire</a>"
+    },
+    {
+    "text" : "No",
+    "action" : "message",
+    "message" : "Moving an existing proof of concept or trial to production requires appropriate security assurance to be completed. Please fill out the <a href=\"/solution\">Product questionnaire</a>"
+    }
+  ] 
+},
+{
+  "id" : "has_been_used_before",
+  "title" : "Product used before",
+  "question" : "Is this product in use already at the Transport Agency?",
+  "description" : "Is another part of the Transport Agency already using this product? Was it used previously?",  
+  "actions" : [
+    {
+    "text" : "Yes",
+    "action" : "message",
+    "message" : "Use of a product previously cleared by security does not require any further security assurances. Please engage the Change Advisory Board (CAB) for using this product."
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ] 
+},
+{
+  "id" : "produced_or_owned_by_nzta",
+  "title" : "Produced/Owned By NZTA",
+  "question" : "Has the Transport Agency paid for the development of this product?",
+  "description" : "Has this product been developed by the NZTA? Or, has it been developed by a partner at the expense of the NZTA?",
+  "actions" : [
+    {
+    "text" : "Yes",
+    "action" : "message",
+    "message" : "Products developed by/for the Transport Agency are not candidates for a proof of concept or trial. Please fill out the <a href=\"/solution\">Product questionnaire</a>"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ] 
+},
+{
+  "id" : "business_owner",
+  "title" : "Business Owner",
+  "question" : "Please enter details of the business owner for this POC/Trial",
+  "description" : "The business owner is the person who can sign off approval for the data used in this POC/Trial to be used. This is a business line manager, not security.",
+  "inputs" : [
+    { 
+    "name" : "Full Name",
+    "type" : "text"
+    },
+    {
+    "name" : "Role at NZTA",
+    "type" : "text"
+    },
+    {
+    "name" : "Email",
+    "type" : "email"
+    }
+  ]
+},
+{
+  "id" : "product_description",
+  "title" : "Product Description",
+  "question" : "Please describe what the product does",
+  "description" : "Include description of the product's features, the ones the Transport Agency wants to use and how we intend to use them.",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "product_purpose",
+  "title" : "Product Purpose",
+  "question" : "Please describe why the Transport Agency needs this product",
+  "description" : "Include description of why this is important, why the Transport Agency needs this and what would happen if we don't fill this gap",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "process_credit_card_payments",
+  "title" : "Credit Card Payments",
+  "question" : "Will this product accept Transport Agency customer credit cards?",
+  "description" : "Is this a system that accepts credit card payments by the NZ Public on behalf of the Transport Agency?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "type" : "PCI-DSS"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "talk_to_cde",
+  "title" : "Credit Card Connection",
+  "question" : "Will this product directly talk to the NZTA Common Payment Services (CPS) system or impact it's security?",
+  "description" : "Does this product deal with credit card payments in any way? or talk to Transport Agency systems that do?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "type" : "PCI-DSS"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "firewall_changes",
+  "title" : "Firewall Changes",
+  "question" : "Will this POC/Trial require firewall changes?",
+  "description" : "If this product requires connections from Transport Agency systems that are not Web (e.g. chrome/firefox) the answer is probably Yes",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "continue"   
+    },
+    {
+    "text" : "No",
+    "action" : "goto",
+    "target" : "data_safety"
+    }
+  ]
+},
+{
+  "id" : "firewall_change_detail",
+  "title" : "Firewall Information",
+  "question" : "Please describe what firewall changes you might need",
+  "description" : "This doesn't have to be technically accurate, but an indication of what systems need to talk and how would be a good start for Infrastructure",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "data_safety",
+  "title" : "Data Safety",
+  "question" : "Please describe how Transport Agency data is protected",
+  "description" : "Include how PII etc will be anonymised or cleansed before being used. If the data is being used in it's original state please note this.",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "expected_outcomes",
+  "title" : "Expected Outcomes",
+  "question" : "Please describe the expected outcomes",
+  "description" : "List down the outcomes we're looking for to use as a measure of success. This will be key functionality working that the Transport Agency will benefit from",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "success_criteria",
+  "title" : "Success Criteria",
+  "question" : "Please describe how success will be measured?",
+  "description" : "Will each of the expected outcomes be evaluated formally? Or will it be based on gut feeling about the product?",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "key_stakeholders",
+  "title" : "Key Stakeholders",
+  "question" : "Please list names and roles of key stakeholders",
+  "description" : "Key stakeholders are people who have day to day deliverables tied to the functionality provided by this product. They will be managers and users",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "time_span",
+  "title" : "Time-Span",
+  "question" : "How long will this proof of concept or trial last?",
+  "description" : "Please note down how long the trial will last in days or weeks",
+  "inputs" : [
+    { 
+    "name" : "Time-Span",
+    "type" : "text"
+    }   
+  ]
+},
+{
+  "id" : "start_date",
+  "title" : "Start Date",
+  "question" : "When does this proof of concept or trial begin?",
+  "description" : "",
+  "inputs" : [
+    { 
+    "name" : "Start Date",
+    "type" : "date"
+    }   
+  ]
+},
+{
+  "id" : "poc_users",
+  "title" : "POC/Trial Users",
+  "question" : "Please list names and roles of Transport Agency users",
+  "description" : "Users are the people who will be using the product during POC/Trial",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+}
+]

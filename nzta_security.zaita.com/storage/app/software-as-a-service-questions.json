@@ -1,0 +1,245 @@
+[
+{
+  "id" : "product_details",
+  "title" : "Product Details",
+  "question" : "Please enter further product details",
+  "description" : "",
+  "inputs" : [
+    {
+    "name" : "Product URL",
+    "type" : "text"
+    },
+    {
+    "name" : "Contact Email",
+    "type" : "email",
+    "optional" : "true"
+    }
+  ]
+},
+{
+  "id" : "has_been_used_before",
+  "title" : "Product used before",
+  "question" : "Is this product in use already at the Transport Agency?",
+  "description" : "Is another part of the Transport Agency already using this product? Was it used previously?",  
+  "actions" : [
+    {
+    "text" : "Yes",
+    "action" : "message",
+    "message" : "Use of a product previously cleared by security does not require any further security assurances. Please engage the Change Advisory Board (CAB) for using this product."
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ] 
+},
+{
+  "id" : "produced_or_owned_by_nzta",
+  "title" : "Produced/Owned By NZTA",
+  "question" : "Has the Transport Agency paid for the development of this product?",
+  "description" : "Has this product been developed by the NZTA? Or, has it been developed by a partner at the expense of the NZTA?",
+  "actions" : [
+    {
+    "text" : "Yes",
+    "action" : "message",
+    "message" : "Products developed by/for the Transport Agency are not candidates for a software-as-a-service approval. Please fill out the <a href=\"/solution\">Product questionnaire</a>"
+    },
+    {
+    "text" : "No",
+    "action" : "create_task",
+    "target" : "GCIO105"
+    }
+  ] 
+},
+{
+  "id" : "product_description",
+  "title" : "Product Description",
+  "question" : "Please describe what the product does",
+  "description" : "Include description of the product's features, the ones the Transport Agency wants to use and how we intend to use them.",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "product_purpose",
+  "title" : "Product Purpose",
+  "question" : "Please describe why the Transport Agency needs this product",
+  "description" : "Include description of why this is important, why the Transport Agency needs this and what would happen if we don't fill this gap",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "business_owner",
+  "title" : "Business Owner",
+  "question" : "Please enter details of the business owner for the use of this SaaS product",
+  "description" : "The business owner is the person who can sign off approval for the data used in this SaaS to be used. This is a business line manager, not security.",
+  "inputs" : [
+    { 
+    "name" : "Full Name",
+    "type" : "text"
+    },
+    {
+    "name" : "Role at NZTA",
+    "type" : "text"
+    },
+    {
+    "name" : "Email",
+    "type" : "email"
+    }
+  ]
+},
+{
+  "id" : "who_owns_data",
+  "title" : "Owner of Data",
+  "question" : "Is the data being loaded/entered in to this system owned by the Transport Agency?",
+  "description" : "",
+    "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "information_classification"
+    },
+    {
+    "text" : "No",
+    "action" : "goto",
+    "target" : "process_credit_card_payments"
+    }
+  ]
+},
+{
+  "id" : "external_data",
+  "title" : "External Data",
+  "question" : "Will Transport Agency data being transferred into the SaaS Product?",
+  "description" : "This determines if Transport Agency data is 'leaving the building' so we can ensure PIA etc are covered",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "information_classification"
+    },
+    {
+    "text" : "No",
+    "action" : "goto",
+    "target" : "process_credit_card_payments"
+    }
+  ]
+},
+{
+  "id" : "transferring_data",
+  "title" : "Transferring Data",
+  "question" : "How is Transport Agency data being transferred into the SaaS Product?",
+  "description" : "Please document the technologies being used to transfer data (e.g. Web Forms, FTP, SCP, Email etc)",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "data_location",
+  "title" : "Data Storage Location",
+  "question" : "Where will Transport Agency data be physically located/stored?",
+  "description" : "What countries and cities will Transport Agency data be held in by this product?",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "process_credit_card_payments",
+  "title" : "Credit Card Payments",
+  "question" : "Will this product accept Transport Agency customer credit cards?",
+  "description" : "Is this a system that accepts credit card payments by the NZ Public on behalf of the Transport Agency?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "type" : "Validate-PCI-DSS"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "firewall_changes",
+  "title" : "Firewall Changes",
+  "question" : "Will this require firewall changes?",
+  "description" : "If this product requires connections from Transport Agency systems that are not Web (e.g. chrome/firefox) the answer is probably Yes",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "continue"   
+    },
+    {
+    "text" : "No",
+    "action" : "goto",
+    "target" : "product_users"
+    }
+  ]
+},
+{
+  "id" : "firewall_change_detail",
+  "title" : "Firewall Information",
+  "question" : "Please describe what firewall changes you might need",
+  "description" : "This doesn't have to be technically accurate, but an indication of what systems need to talk and how would be a good start for Infrastructure",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "product_users",
+  "title" : "Users",
+  "question" : "Please list names and roles of Transport Agency users for this SaaS product",
+  "description" : "Users are the people who will be using the product",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "multifactor_authentication",
+  "title" : "Multi-Factor Authentication",
+  "question" : "Please describe how Multi-factor authentication is used by this product",
+  "description" : "Include the technologies and products being used (e.g. SMS, Google Authenticator)",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "personally_identifiable_information",
+  "title" : "Personally Identifiable Information",
+  "question" : "Will this SaaS product store personally identifiable information (PII)?",
+  "description" : "PII is any information that could be used to identify a person. This includes name, address, email, dob etc.",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "privacy_impact_assessment"   
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+}
+]

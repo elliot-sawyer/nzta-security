@@ -1,0 +1,219 @@
+[
+{
+  "id" : "business_owner",
+  "title" : "Business Owner",
+  "question" : "Please enter details of the business owner for this solution",
+  "description" : "The business owner is the person who can sign off approval for this delivery to go to production. This is a business line manager, not security.",
+  "inputs" : [
+    { 
+    "name" : "Full Name",
+    "type" : "text"
+    },
+    {
+    "name" : "Role at NZTA",
+    "type" : "text"
+    },
+    {
+    "name" : "Email",
+    "type" : "email"
+    }
+  ]
+},
+{
+  "id" : "description",
+  "title" : "Description",
+  "question" : "Please provide a brief description of this deliverable",
+  "description" : "Describe what is being delivered, not why/how. This information will be reviewed by Security Architect and Business Owner for approval",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }  
+  ]
+},
+{
+  "id" : "credit_card_payments",
+  "title" : "Credit Card Payments",
+  "question" : "Does this deliverable add or modify credit card processing?",
+  "description" : "Select yes if this deliverable modifies any component that handles credit card processing",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "PCI-DSS"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "talk_to_cde",
+  "title" : "Credit Card Connection",
+  "question" : "Will this deliverable talk to the NZTA Common Payment Services (CPS) system or impact it's security?",
+  "description" : "Does this product deal with credit card payments in any way? or talk to Transport Agency systems that do?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "PCI-DSS"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "new_data_feeds",
+  "title" : "Need Data Feeds",
+  "question" : "Does this deliverable add new data to the product?",
+  "description" : "Does this add a new type of data that is stored, transmitted or received by the product?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "information_classification"
+    },
+    {
+    "text" : "No",
+    "action" : "goto",
+    "target" : "public_facing_interfaces"
+    }
+  ]
+},
+{
+  "id" : "external_data",
+  "title" : "External Data",
+  "question" : "Will this new data being transferred to a new external location for storage?",
+  "description" : "Is this a location your product has not used previously to store information?",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "continue"
+    },
+    {
+    "text" : "No",
+    "action" : "goto",
+    "target" : "process_credit_card_payments"
+    }
+  ]
+},
+{
+  "id" : "transferring_data",
+  "title" : "Transferring Data",
+  "question" : "How is Transport Agency data being transferred to this external location?",
+  "description" : "Please document the technologies being used to transfer data (e.g. Web Forms, FTP, SCP, Email etc)",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "data_location",
+  "title" : "Data Storage Location",
+  "question" : "Where will this new data be physically located/stored?",
+  "description" : "What countries and cities will this data be held in by this product?",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "personally_identifiable_information",
+  "title" : "Personally Identifiable Information",
+  "question" : "Is this new data personally identifiable information (PII)?",
+  "description" : "PII is any information that could be used to identify a person. This includes name, address, email, dob etc.",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "privacy_impact_assessment"   
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "public_facing_interfaces",
+  "title" : "Public Facing Interfaces",
+  "question" : "Does this deliverable expose new public facing interfaces?",
+  "description" : "This means new endpoints, not new API on existing endpoint (e.g. Apigee).",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "penetration_test"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "new_components",
+  "title" : "New Components",
+  "question" : "Does this deliverable use new technological components?",
+  "description" : "This means new components (e.g. Apigee, S3, GCP Buckets etc) not used in this product before",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "create_task",
+    "target" : "component_selection"
+    },
+    {
+    "text" : "No",
+    "action" : "continue"
+    }
+  ]
+},
+{
+  "id" : "firewall_changes",
+  "title" : "Firewall Changes",
+  "question" : "Will this deliverable require firewall changes?",
+  "description" : "If this deliverable requires connections from Transport Agency systems that are not Web (e.g. chrome/firefox) the answer is probably Yes",
+  "actions" : [
+    { 
+    "text" : "Yes",
+    "action" : "continue"   
+    },
+    {
+    "text" : "No",
+    "action" : "goto",
+    "target" : "other_risks"
+    }
+  ]
+},
+{
+  "id" : "firewall_change_detail",
+  "title" : "Firewall Information",
+  "question" : "Please describe what firewall changes you might need",
+  "description" : "This doesn't have to be technically accurate, but an indication of what systems need to talk and how would be a good start for Infrastructure",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+},
+{
+  "id" : "other_risks",
+  "title" : "Other Risks",
+  "question" : "Is there any other information that should be provided that modifies the risk of the product because of this deliverable?",
+  "description" : "Provide any further information that may impact the security/risk of this product with this deliverable.",
+  "inputs" : [
+    { 
+    "name" : "Description",
+    "type" : "textarea"
+    }   
+  ]
+}
+]

@@ -117,7 +117,7 @@ word-wrap: break-word;
 </div>
 		
 <!-- Footer -->
-<div class="top_blue_bar"><p class="copyright">&copy; 2019 | NZ Transporty Agency</p></div>
+<div class="top_blue_bar"><p class="copyright">&copy; 2019 | NZ Transport Agency</p></div>
 		
 </div> <!--  Page  -->
 </body>
